@@ -21,7 +21,6 @@ export const Navigation = () => {
     const router = useRouter();
     const pathname = usePathname();
 
-    // Helper to close the sheet and navigate
     const onClick = (href: string) => {
         router.push(href);
         setIsOpen(false);
@@ -29,11 +28,9 @@ export const Navigation = () => {
 
     return (
         <>
-            {/* --- MOBILE NAVIGATION --- */}
             <div className="block lg:hidden">
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild>
-                        {/* Hamburger Button styled to match your dark header */}
                         <Button
                             variant="outline"
                             size="sm"
@@ -60,7 +57,6 @@ export const Navigation = () => {
                 </Sheet>
             </div>
 
-            {/* --- DESKTOP NAVIGATION --- */}
             <nav className="hidden lg:flex items-center gap-x-2 overflow-x-auto">
                 {routes.map((route) => (
                     <NavButton
