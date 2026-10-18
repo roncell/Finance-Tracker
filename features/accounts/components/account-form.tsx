@@ -1,7 +1,7 @@
 "use client"
 
 import { z } from "zod";
-import { Trash } from "lucide-react";
+import { Loader2, Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -68,7 +68,8 @@ export const AccountForm = ({
                         </FormItem>
                     )}
                 />
-                <Button className="w-full" disabled={disabled}>
+                <Button className="w-full transition-transform active:scale-[0.98]" disabled={disabled}>
+                    {disabled && <Loader2 className="size-4 mr-2 animate-spin" />}
                     {id ? "Save changes" : "Create account"}
                 </Button>
                 {!!id && (
@@ -76,7 +77,7 @@ export const AccountForm = ({
                         type="button"
                         disabled={disabled}
                         onClick={onDelete}
-                        className="w-full"
+                        className="w-full transition-transform active:scale-[0.98]"
                         variant="outline"
                     >
                         <Trash className="size-4 mr-2" />

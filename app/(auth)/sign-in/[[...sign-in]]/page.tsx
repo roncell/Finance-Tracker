@@ -1,4 +1,5 @@
 import { SignIn, ClerkLoaded, ClerkLoading } from '@clerk/nextjs';
+import { Landmark } from 'lucide-react';
 
 export default function Page() {
   return ( 
@@ -41,14 +42,20 @@ export default function Page() {
       </div>
 
       {/* Right Column: Welcome section with header and small intro (Hidden on Mobile) */}
-      <div className="hidden lg:flex flex-col items-center justify-center bg-zinc-900 p-12 text-white relative overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>        
+      <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 p-12 text-white relative overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
         <div className="relative z-10 max-w-md space-y-6 text-center lg:text-left">
+          <div className="flex items-center gap-x-2.5 justify-center lg:justify-start">
+            <div className="flex items-center justify-center size-9 rounded-lg bg-white/10">
+              <Landmark className="size-5 text-white" />
+            </div>
+            <span className="text-xl font-bold tracking-tight">FinanceTracker</span>
+          </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Track your finances <br/> with Trackifi.
+            Every account. <br/> One clear picture.
           </h1>
           <p className="text-lg text-zinc-400">
-            Manage your budget, track your investments, and take control of your finances.
+            Connect your bank, categorise your spending, and see exactly where your money goes.
           </p>
         </div>
       </div>

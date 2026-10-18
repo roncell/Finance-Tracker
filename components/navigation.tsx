@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Menu } from "lucide-react";
 
-import { NavButton } from "@/components/nav-button"; 
+import { NavButton } from "@/components/nav-button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -16,13 +16,26 @@ const routes = [
     { href: "/settings", label: "Settings" },
 ];
 
+// Overview and Transactions both read the account/date-range filters from
+// the URL. Plain nav links would drop those params on every tab switch, so
+// carry the current filters along when navigating between these two pages.
+const FILTERED_ROUTES = new Set(["/", "/transactions"]);
+
 export const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const buildHref = (href: string) => {
+        if (!FILTERED_ROUTES.has(href)) return href;
+
+        const query = searchParams.toString();
+        return query ? `${href}?${query}` : href;
+    };
 
     const onClick = (href: string) => {
-        router.push(href);
+        router.push(buildHref(href));
         setIsOpen(false);
     };
 
@@ -47,7 +60,7 @@ export const Navigation = () => {
                                     key={route.href}
                                     variant={route.href === pathname ? "secondary" : "ghost"}
                                     onClick={() => onClick(route.href)}
-                                    className="w-full justify-start"
+                                    className="w-full justify-start transition-colors"
                                 >
                                     {route.label}
                                 </Button>
@@ -61,7 +74,7 @@ export const Navigation = () => {
                 {routes.map((route) => (
                     <NavButton
                         key={route.href}
-                        href={route.href}
+                        href={buildHref(route.href)}
                         label={route.label}
                         isActive={pathname === route.href}
                     />

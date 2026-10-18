@@ -1,17 +1,21 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-acc";
+import { Suspense } from "react";
+
+import { Filters } from "@/components/filters";
+import { DataGrid } from "@/components/data-grid";
+import { DataCharts } from "@/components/data-charts";
 
 export default function Home() {
-
-  const { onOpen } = useNewAccount();
-
   return (
-    <div>
-      <Button onClick={onOpen}>
-        Add an account
-      </Button>
-    </div>      
+    <div className="relative max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+      <Suspense>
+        <div className="bg-card border rounded-lg shadow-sm p-3 mb-8">
+          <Filters />
+        </div>
+        <DataGrid />
+        <DataCharts />
+      </Suspense>
+    </div>
   );
 };
